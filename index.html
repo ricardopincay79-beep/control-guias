@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Escáner de Guías</title>
+
+  <script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 20px;
+      background: #f2f4f7;
+    }
+
+    h1 {
+      color: #1a73e8;
+    }
+
+    #reader {
+      width: 100%;
+      max-width: 500px;
+      margin: 20px auto;
+      background: white;
+      padding: 10px;
+      border-radius: 12px;
+    }
+
+    #resultado {
+      margin-top: 20px;
+      padding: 15px;
+      background: white;
+      border-radius: 12px;
+      font-size: 20px;
+      font-weight: bold;
+    }
+
+    button {
+      padding: 15px 25px;
+      font-size: 17px;
+      border: none;
+      border-radius: 10px;
+      background: #1a73e8;
+      color: white;
+    }
+  </style>
+</head>
+
+<body>
+
+  <h1>📷 ESCÁNER DE GUÍAS</h1>
+
+  <div id="reader"></div>
+
+  <div id="resultado">
+    Apunta la cámara al código de barras.
+  </div>
+
+  <script>
+
+    function codigoDetectado(codigo) {
+
+      document.getElementById("resultado").innerText =
+        "GUÍA DETECTADA: " + codigo;
+
+    }
+
+    function errorLectura(error) {
+      // Ignorar errores normales mientras busca el código
+    }
+
+    const scanner = new Html5QrcodeScanner(
+      "reader",
+      {
+        fps: 10,
+        qrbox: {
+          width: 300,
+          height: 150
+        }
+      },
+      false
+    );
+
+    scanner.render(codigoDetectado, errorLectura);
+
+  </script>
+
+</body>
+</html>
