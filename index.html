@@ -71,14 +71,9 @@
       // Ignorar errores normales mientras busca el código
     }
 
-  const scanner = new Html5QrcodeScanner(
+ const scanner = new Html5Qrcode(
   "reader",
   {
-    fps: 10,
-    qrbox: {
-      width: 300,
-      height: 150
-    },
     formatsToSupport: [
       Html5QrcodeSupportedFormats.CODE_128,
       Html5QrcodeSupportedFormats.CODE_39,
@@ -91,11 +86,28 @@
       Html5QrcodeSupportedFormats.ITF,
       Html5QrcodeSupportedFormats.QR_CODE
     ]
-  },
-  false
+  }
 );
 
-scanner.render(codigoDetectado, errorLectura);
+scanner.start(
+  { facingMode: "environment" },
+  {
+    fps: 10,
+    qrbox: {
+      width: 300,
+      height: 150
+    }
+  },
+  codigoDetectado,
+  errorLectura
+).catch(function(error) {
+
+  document.getElementById("resultado").innerText =
+    "No se pudo abrir la cámara trasera.";
+
+  console.error(error);
+
+});
 
   </script>
 
