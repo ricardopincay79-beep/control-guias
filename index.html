@@ -60,10 +60,32 @@
 
   <script>
 
-    function codigoDetectado(codigo) {
+   let lecturaProcesada = false;
 
-      document.getElementById("resultado").innerText =
-        "GUÍA DETECTADA: " + codigo;
+function codigoDetectado(codigo) {
+
+  if (lecturaProcesada) return;
+  lecturaProcesada = true;
+
+  document.getElementById("resultado").innerText =
+    "GUÍA DETECTADA: " + codigo;
+
+  const parametros = new URLSearchParams(window.location.search);
+  const regresarA = parametros.get("return");
+
+  if (regresarA) {
+
+    const urlRegreso = new URL(regresarA);
+
+    urlRegreso.searchParams.set("guia", codigo);
+
+    setTimeout(function() {
+      window.location.href = urlRegreso.toString();
+    }, 700);
+
+  }
+
+}
 
     }
 
