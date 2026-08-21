@@ -60,7 +60,7 @@
 
   <script>
 
-   let lecturaProcesada = false;
+let lecturaProcesada = false;
 
 function codigoDetectado(codigo) {
 
@@ -70,20 +70,15 @@ function codigoDetectado(codigo) {
   document.getElementById("resultado").innerText =
     "GUÍA DETECTADA: " + codigo;
 
-  const parametros = new URLSearchParams(window.location.search);
-  const regresarA = parametros.get("return");
+  const urlControl =
+    "https://script.google.com/macros/s/AKfycbxrw-BbJz_YMkT_pqvenc5xQ07Lb8zmozpZej-fSAmj5XT1-_1fqkjnsprDp9rBQ9-a1A/exec";
 
-  if (regresarA) {
+  setTimeout(function() {
 
-    const urlRegreso = new URL(regresarA);
+    window.location.href =
+      urlControl + "?guia=" + encodeURIComponent(codigo);
 
-    urlRegreso.searchParams.set("guia", codigo);
-
-    setTimeout(function() {
-      window.location.href = urlRegreso.toString();
-    }, 700);
-
-  }
+  }, 700);
 
 }
 
