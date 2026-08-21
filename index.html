@@ -51,6 +51,9 @@
 <body>
 
   <h1>📷 ESCÁNER DE GUÍAS</h1>
+  <button onclick="iniciarCamara()">
+  📷 INICIAR CÁMARA
+</button>
 
   <div id="reader"></div>
 
@@ -106,25 +109,29 @@ function codigoDetectado(codigo) {
   }
 );
 
-scanner.start(
-  { facingMode: "environment" },
-  {
-    fps: 10,
-    qrbox: {
-      width: 300,
-      height: 150
-    }
-  },
-  codigoDetectado,
-  errorLectura
-).catch(function(error) {
+function iniciarCamara() {
 
-  document.getElementById("resultado").innerText =
-    "No se pudo abrir la cámara trasera.";
+  scanner.start(
+    { facingMode: "environment" },
+    {
+      fps: 10,
+      qrbox: {
+        width: 300,
+        height: 150
+      }
+    },
+    codigoDetectado,
+    errorLectura
+  ).catch(function(error) {
 
-  console.error(error);
+    document.getElementById("resultado").innerText =
+      "No se pudo abrir la cámara trasera.";
 
-});
+    console.error(error);
+
+  });
+
+}
 
   </script>
 
